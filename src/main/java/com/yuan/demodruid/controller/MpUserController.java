@@ -1,10 +1,14 @@
 package com.yuan.demodruid.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.yuan.demodruid.domain.entity.MpUser;
 import com.yuan.demodruid.service.MpUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -63,6 +67,12 @@ public class MpUserController {
     public Object del(@PathVariable Long id) {
         mpUserService.removeById(id);
         return "del";
+    }
+    
+    //http://127.0.0.1:8087/demo-druid/mp-user/queryUser?current=3&size=5 
+    @GetMapping("queryUser")
+    public Object queryList(Integer current, Integer size) {
+        return mpUserService.queryUserForPage(current, size);
     }
 
 }
